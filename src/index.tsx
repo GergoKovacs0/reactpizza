@@ -1,12 +1,46 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Pizzak from './pages/Pizzak';
+import Pizza from './pages/Pizza';
+import NotFound from './pages/NotFound';
+import Navigation from './components/Navigation';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+import { Slide, ToastContainer } from 'react-toastify';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/index.css';
+import Kosar from './pages/Kosar';
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+root.render(
+    <>
+        <ToastContainer
+            position="top-right"
+            autoClose={false}
+            limit={1}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="colored"
+            transition={Slide}
+        />
+        <Navigation />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/pizzak" element={<Pizzak />} />
+                <Route path="/pizza/:id" element={<Pizza />} />
+                <Route path="/kosar" element={<Kosar />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+    </>,
 );
-
-root.render(<React.StrictMode>Hello World!</React.StrictMode>);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
