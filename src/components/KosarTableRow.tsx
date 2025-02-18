@@ -27,7 +27,7 @@ const KosarTableRow: React.FC<KosarTableRowProps> = ({ pizza, pcs }) => {
         <tr>
             <td>{pizza.nev}</td>
             <td>
-                <Row>
+                <Row style={{ display: 'flex', justifyContent: 'center', msFlexDirection: 'row' }}>
                     <Button onClick={() => changePcs(-1)}>-</Button>
                     {pcs}
                     <Button onClick={() => changePcs(+1)}>+</Button>

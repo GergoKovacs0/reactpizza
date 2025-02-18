@@ -47,7 +47,51 @@ const PizzaPage: React.FC = () => {
 
         const kosar = localStorage.getItem('kosar');
         if (!kosar) {
+            localStorage.setItem('kosar', JSON.stringify([{ ...pizza, quantity }]));
             return;
+        }
+
+        try {
+            const kosarArray = JSON.parse(kosar);
+            if (Array.isArray(kosarArray) && kosarArray.some((item) => item.nev === pizza.nev)) {
+                toast.info('Ez a pizza már a kosárban van!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'colored',
+                    transition: Slide,
+                });
+            } else {
+                kosarArray.push({ ...pizza, quantity });
+                localStorage.setItem('kosar', JSON.stringify(kosarArray));
+                toast.success('Pizza hozzáadva a kosárhoz!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'colored',
+                    transition: Slide,
+                });
+            }
+        } catch (error) {
+            toast.error('Hiba történt a kosár ellenőrzése során!', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored',
+                transition: Slide,
+            });
         }
     };
 

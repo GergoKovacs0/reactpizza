@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Row } from 'react-bootstrap';
 import Pizza from '../types/Pizza';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,8 +16,12 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ pizza }) => {
                 <Card.Title>{pizza.nev}</Card.Title>
                 <Card.Text>{pizza.leiras}</Card.Text>
                 <Card.Text>{pizza.ar} Ft</Card.Text>
-                <Button variant="primary">Rendelés</Button>
             </Card.Body>
+            <Card.Footer>
+                <Row>
+                    <Button variant="primary">Megtekintés</Button>
+                </Row>
+            </Card.Footer>
         </Card>
     );
 };
