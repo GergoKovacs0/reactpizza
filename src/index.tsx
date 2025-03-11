@@ -12,6 +12,8 @@ import { Slide, ToastContainer } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css';
 import Kosar from './pages/Kosar';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -32,10 +34,13 @@ root.render(
         <Navigation />
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/pizzak" element={<Pizzak />} />
-                <Route path="/pizza/:id" element={<Pizza />} />
-                <Route path="/kosar" element={<Kosar />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/pizzak" element={<Pizzak />} />
+                    <Route path="/pizza/:id" element={<Pizza />} />
+                    <Route path="/kosar" element={<Kosar />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
