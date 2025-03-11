@@ -31,6 +31,7 @@ const LoginPage: React.FC = () => {
                     theme: 'colored',
                     transition: Bounce,
                 });
+                return;
             }
 
             sessionStorage.setItem('username', username);

@@ -14,6 +14,7 @@ import './styles/index.css';
 import Kosar from './pages/Kosar';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import Rendelesek from './pages/Rendelesek';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -35,11 +36,12 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/pizzak" element={<Pizzak />} />
+                <Route path="/pizza/:id" element={<Pizza />} />
                 <Route element={<ProtectedRoute />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/pizzak" element={<Pizzak />} />
-                    <Route path="/pizza/:id" element={<Pizza />} />
                     <Route path="/kosar" element={<Kosar />} />
+                    <Route path="/rendelesek" element={<Rendelesek />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>

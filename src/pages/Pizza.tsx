@@ -9,6 +9,8 @@ import { text } from 'stream/consumers';
 const PizzaPage: React.FC = () => {
     const { id } = useParams();
 
+    const [isAuth, setIsAuth] = useState(false);
+
     const [pizza, setPizza] = useState<Pizza>({} as Pizza);
     const [isLoaded, setIsLoaded] = useState(false);
     const [quantity, setQuantity] = useState<number>(1);
@@ -16,7 +18,6 @@ const PizzaPage: React.FC = () => {
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<number>(0);
     const [secretCode, setSecretCode] = useState<string>('');
-
     useEffect(() => {
         apiClient
             .get(`/pizzak/${id}`)
@@ -40,6 +41,10 @@ const PizzaPage: React.FC = () => {
                     },
                 );
             });
+
+        if (sessionStorage.getItem('username')) {
+            setIsAuth(true);
+        }
     }, []);
 
     const handleOrderSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -143,45 +148,47 @@ const PizzaPage: React.FC = () => {
                                 </Button>
                             </Form>
                         </Col>
-                        <Col>
-                            <Form onSubmit={handleUpdateSubmit}>
-                                <Form.Group>
-                                    <Form.Label>Név</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Leírás</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Ár</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        value={price}
-                                        onChange={(e) => setPrice(Number(e.target.value))}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Titkod kód</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        value={secretCode}
-                                        onChange={(e) => setSecretCode(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <Button variant="primary" type="submit">
-                                    Frissítés
-                                </Button>
-                            </Form>
-                        </Col>
+                        {isAuth ? (
+                            <Col>
+                                <Form onSubmit={handleUpdateSubmit}>
+                                    <Form.Group>
+                                        <Form.Label>Név</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Leírás</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Ár</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            value={price}
+                                            onChange={(e) => setPrice(Number(e.target.value))}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Titkod kód</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            value={secretCode}
+                                            onChange={(e) => setSecretCode(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit">
+                                        Frissítés
+                                    </Button>
+                                </Form>
+                            </Col>
+                        ) : null}
                     </Row>
                 </Container>
             )}
