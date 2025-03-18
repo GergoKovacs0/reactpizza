@@ -14,7 +14,7 @@ import './styles/index.css';
 import Kosar from './pages/Kosar';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import Rendelesek from './pages/Rendelesek';
+import Account from './pages/Account';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -41,7 +41,7 @@ root.render(
                 <Route path="/pizza/:id" element={<Pizza />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/kosar" element={<Kosar />} />
-                    <Route path="/rendelesek" element={<Rendelesek />} />
+                    <Route path="/felhasználó" element={<Account />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
