@@ -52,6 +52,7 @@ const PizzaPage: React.FC = () => {
 
         const kosar = localStorage.getItem('kosar');
         if (!kosar) {
+            console.log("adding")
             localStorage.setItem('kosar', JSON.stringify([{ ...pizza, quantity }]));
             return;
         }

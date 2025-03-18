@@ -3,24 +3,26 @@ import { Container, Table, Button, Alert } from 'react-bootstrap';
 import { MdDelete } from 'react-icons/md';
 import { FaShoppingCart } from 'react-icons/fa';
 import Pizza from '../types/Pizza';
+import PizzaCard from '../components/PizzaCard';
 
 const CartPage = () => {
     // Sample cart state
-    const [cart, setCart] = useState<{ quantity: number; pizza: Pizza }[]>();
+    const [cart, setCart] = useState<Array<Pizza & { quantity: number }>>([]);
 
     useEffect(() => {
-        const kosar = JSON.parse(sessionStorage.getItem('cart') || '[]');
+        const kosar = JSON.parse(localStorage.getItem('kosar') || '[]');
+        console.log(kosar);
         setCart(kosar);
     }, []);
 
     // Function to remove item from cart
     const removeFromCart = (id: number) => {
-        setCart(cart?.filter((item) => item.pizza.id !== id));
+        setCart(cart?.filter((item) => item.id !== id));
     };
 
     // Function to calculate total price
     const getTotalPrice = () => {
-        return cart?.reduce((total, item) => total + item.pizza.ar * item.quantity, 0);
+        return cart?.reduce((total, item) => total + item.ar * item.quantity, 0);
     };
 
     return (
@@ -47,15 +49,15 @@ const CartPage = () => {
                         </thead>
                         <tbody>
                             {cart?.map((item, index) => (
-                                <tr key={item.pizza.id}>
+                                <tr key={item.id}>
                                     <td>{index + 1}</td>
-                                    <td>{item.pizza.nev}</td>
-                                    <td>{item.pizza.ar} Ft</td>
+                                    <td>{item.nev}</td>
+                                    <td>{item.ar} Ft</td>
                                     <td>{item.quantity}</td>
                                     <td className="d-flex justify-content-center">
                                         <Button
                                             variant="danger"
-                                            onClick={() => removeFromCart(item.pizza.id)}
+                                            onClick={() => removeFromCart(item.id)}
                                         >
                                             <MdDelete />
                                         </Button>
